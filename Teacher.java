@@ -6,11 +6,11 @@ public class Teacher extends Person {
 
    @Override
    public double calculateWellnessScore() {
-       return 0.3 *(getSteps()/1000) + 0.5 *(getSleep()) + 2.5 *(getWater());
+       return 0.3 *(getSteps()/ 1000.0) + 0.5 *(getSleep()) + 2.5 *(getWater());
    }
 
    @Override
    public String getRole() {
-       return "Teacher";
+       return "teacher";
    }
 }

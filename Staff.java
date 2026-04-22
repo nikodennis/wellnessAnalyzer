@@ -6,11 +6,11 @@ public class Staff extends Person {
 
    @Override
    public double calculateWellnessScore() {
-       return 0.5 *( getSteps() /1000) + 0.3 *(getSleep()) + 2 *(getWater());
+       return 0.5 * ( getSteps() / 1000.0) + 0.3 * (getSleep()) + 2 * (getWater());
    }
 
    @Override
    public String getRole() {
-       return "Staff";
+       return "staff";
    }
 }

@@ -13,6 +13,6 @@ public class Student extends Person {
 
    @Override
    public String getRole() {
-       return "Student";
+       return "student";
    }
 }

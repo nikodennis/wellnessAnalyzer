@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+
 public class WellnessAnalyzer {
    public static void main(String[] args) throws FileNotFoundException {
 
@@ -38,7 +39,7 @@ public class WellnessAnalyzer {
                 if (people.size() == 0 || wellnessScore <= people.get(0).calculateWellnessScore())
                     people.add(0,p);
                 else if (wellnessScore >= people.get(people.size() - 1).calculateWellnessScore()){
-                    people.add(0,p);
+                    people.add(p);
                 }
                 else
                     for (int i = 0; i<people.size(); i++){
@@ -60,15 +61,16 @@ public class WellnessAnalyzer {
                 double avgStudent = 0;
                 double avgTeacher = 0;
                 double avgStaff = 0;
-                double max = Double.MAX_VALUE;
-                double min = Double.MIN_VALUE;
+                double max = 0;
+                double min = 100;
+                double median = 0;
                 double studentTotalScore = 0;
                 double teacherTotalScore = 0;
                 double staffTotalScore = 0;
-                double studentTotal = 0;
-                double teacherTotal = 0;
-                double staffTotal = 0;
-
+                int studentTotal = 0;
+                int teacherTotal = 0;
+                int staffTotal = 0;
+                
                 for (Person p: people){
                     total += p.calculateWellnessScore();
                     if (p.calculateWellnessScore() > max){
@@ -78,16 +80,16 @@ public class WellnessAnalyzer {
                         min = p.calculateWellnessScore();
                     }
                     if (p.getRole().equals("student")){
-                        studentTotal += p.calculateWellnessScore();
-                        studentTotalScore++;
+                        studentTotalScore += p.calculateWellnessScore();
+                        studentTotal++;
                     }
                     if (p.getRole().equals("teacher")){
-                        teacherTotal += p.calculateWellnessScore();
-                        teacherTotalScore++;
+                        teacherTotalScore += p.calculateWellnessScore();
+                        teacherTotal++;
                     }
                     if (p.getRole().equals("staff")){
-                        staffTotal += p.calculateWellnessScore();
-                        staffTotalScore++;
+                        staffTotalScore += p.calculateWellnessScore();
+                        staffTotal++;
                     }
 
                 }
@@ -95,13 +97,35 @@ public class WellnessAnalyzer {
                 avgStudent = studentTotalScore / studentTotal;
                 avgTeacher = teacherTotalScore / teacherTotal;
                 avgStaff = staffTotalScore / staffTotal;
+                int mid = people.size() / 2;
+                if (people.size() % 2 == 0){
+                    int highmid = people.size() / 2 + 1;
+                    median = (people.get(mid).calculateWellnessScore() + people.get(highmid).calculateWellnessScore()) / 2;
+                }
+                if (people.size() % 2 != 0){
+                    median = people.get(mid).calculateWellnessScore();
+                }
 
-                System.out.println(avg);
-                System.out.println(min);
-                System.out.println(max);
-                System.out.println(avgStudent);
-                System.out.println(avgTeacher);
-                System.out.println(avgStaff);
+                double sum = 0;
+                for (Person p: people){
+                    sum += Math.pow(p.calculateWellnessScore() - avg, 2);
+                }
+
+                double SD = Math.sqrt(sum / (people.size() - 1));
+
+                 for (Person p: people){
+                    System.out.println(p.getName() + ", " + p.getRole() + ", " + p.calculateWellnessScore());
+                }
+
+                System.out.println("Average: " + avg);
+                System.out.println("Min: " + min);
+                System.out.println("Max: " + max);
+                System.out.println("Median: " + median);
+                System.out.println("Standard Deviation: " + SD);
+
+                System.out.println("Student Average: " + avgStudent);
+                System.out.println("Teacher Average: " + avgTeacher);
+                System.out.println("Staff Average: " + avgStaff);
        }
 
 
